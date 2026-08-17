@@ -2,11 +2,18 @@
 
 import { usePosts } from "@/lib/usePosts";
 import { liveFeed } from "@/lib/decay";
+import { computeIntegrity } from "@/lib/integrity";
 import PostCard from "@/components/PostCard";
 
 export default function FeedPage() {
   const { posts, ready, reinforce, alreadyReinforced } = usePosts();
-  const feed = liveFeed(posts);
+  // Live display integrity (real time) so posts keep decaying between the
+  // once-every-two-days cron runs that actually persist transitions.
+  const feed = liveFeed(posts).map((p) =>
+    p.status === "live"
+      ? { ...p, integrity: computeIntegrity(p.created_at, p.reinforcements) }
+      : p
+  );
 
   return (
     <div>

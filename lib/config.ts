@@ -24,6 +24,12 @@ export const CONFIG = {
   MIN_CHAR_LIMIT: 1,
   MAX_CHAR_LIMIT: 500,
 
+  // The decay "cron" heartbeat. Runs once every two days to recompute
+  // integrity and transition posts to fossilized/dissolved and persist them.
+  // Live display integrity is still computed in real time (see app/page.tsx),
+  // so posts keep visibly decaying between cron runs.
+  CRON_INTERVAL_MS: 2 * 24 * 60 * 60 * 1000,
+
   // storage keys (localStorage)
   STORAGE_KEY: "fossil.posts.v1",
   REINFORCEMENTS_KEY: "fossil.reinforcements.v1",
