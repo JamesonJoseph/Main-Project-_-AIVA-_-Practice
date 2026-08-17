@@ -21,10 +21,10 @@ export default function FeedPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight text-fossil-fresh">
+        <h1 className="text-xl font-bold tracking-tight text-fossil-fresh sm:text-2xl">
           The live feed
         </h1>
-        <p className="mt-1 font-mono text-sm text-fossil-fading">
+        <p className="mt-1 font-mono text-xs text-fossil-fading sm:text-sm">
           Fresh first. Everything here is decaying. Reinforce what matters.
         </p>
       </div>
@@ -32,7 +32,7 @@ export default function FeedPage() {
       {!ready || !minLoading ? (
         <AsciiLoader />
       ) : feed.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-fossil-edge p-10 text-center">
+        <div className="rounded-xl border border-dashed border-fossil-edge p-6 text-center sm:p-10">
           <p className="font-mono text-fossil-fading">
             Nothing here yet. The feed is empty and silent.
           </p>

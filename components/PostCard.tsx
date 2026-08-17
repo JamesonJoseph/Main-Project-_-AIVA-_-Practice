@@ -43,7 +43,7 @@ export default function PostCard({
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="rounded-xl border-2 border-fossil-accent bg-fossil-panel p-5"
+        className="rounded-xl border-2 border-fossil-accent bg-fossil-panel p-4 sm:p-5"
       >
         <div className="mb-2 text-xs font-bold tracking-widest text-fossil-accent">
           {bandLabel[band]}
@@ -73,7 +73,7 @@ export default function PostCard({
         layout
         initial={{ opacity: 1 }}
         animate={{ opacity: 0.4 }}
-        className="rounded-xl border border-dashed border-fossil-edge bg-fossil-panel p-5"
+        className="rounded-xl border border-dashed border-fossil-edge bg-fossil-panel p-4 sm:p-5"
       >
         <div className="mb-2 text-xs font-bold tracking-widest text-fossil-fading">
           {bandLabel[band]}
@@ -95,7 +95,7 @@ export default function PostCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className={`rounded-xl border bg-fossil-panel p-5 ${bandStyles[band]}`}
+      className={`rounded-xl border bg-fossil-panel p-4 sm:p-5 ${bandStyles[band]}`}
       style={{
         opacity: band === "fading" ? 0.7 + (post.integrity / 100) * 0.3 : 1,
       }}
@@ -117,7 +117,7 @@ export default function PostCard({
         {display}
       </motion.p>
 
-      <div className="mt-4 flex items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         <ReinforceButton
           post={post}
           onReinforce={(id) => onReinforce?.(id) ?? null}
@@ -125,7 +125,7 @@ export default function PostCard({
         />
 
         {terminal && (
-          <span className="ml-auto animate-pulseCta text-sm font-bold text-fossil-terminal">
+          <span className="ml-auto animate-pulseCta text-xs font-bold text-fossil-terminal sm:text-sm">
             REINFORCE TO SAVE
           </span>
         )}
