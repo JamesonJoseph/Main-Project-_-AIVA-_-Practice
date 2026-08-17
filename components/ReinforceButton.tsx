@@ -38,7 +38,7 @@ export default function ReinforceButton({
   const disabled = alreadyReinforced || optimistic;
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
       <motion.button
         whileTap={{ scale: 0.94 }}
         onClick={handle}
