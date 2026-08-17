@@ -11,6 +11,7 @@ import {
 } from "./storage";
 import { getIdentity } from "./identity";
 import { runDecay } from "./decay";
+import { CONFIG } from "./config";
 import type { Post } from "./types";
 
 /**
@@ -38,7 +39,7 @@ export function usePosts() {
     refresh();
     setReady(true);
 
-    const interval = setInterval(refresh, 60_000); // cron heartbeat (60s)
+    const interval = setInterval(refresh, CONFIG.CRON_INTERVAL_MS); // cron heartbeat (once / 2 days)
 
     const onSync = () => refresh();
     syncChannel?.addEventListener("message", onSync);

@@ -2,11 +2,21 @@
 
 import { usePosts } from "@/lib/usePosts";
 import { liveFeed } from "@/lib/decay";
+import { computeIntegrity } from "@/lib/integrity";
+import { useElapsed } from "@/lib/useElapsed";
 import PostCard from "@/components/PostCard";
+import AsciiLoader from "@/components/AsciiLoader";
 
 export default function FeedPage() {
   const { posts, ready, reinforce, alreadyReinforced } = usePosts();
-  const feed = liveFeed(posts);
+  const minLoading = useElapsed(3000);
+  // Live display integrity (real time) so posts keep decaying between the
+  // once-every-two-days cron runs that actually persist transitions.
+  const feed = liveFeed(posts).map((p) =>
+    p.status === "live"
+      ? { ...p, integrity: computeIntegrity(p.created_at, p.reinforcements) }
+      : p
+  );
 
   return (
     <div>
@@ -19,8 +29,8 @@ export default function FeedPage() {
         </p>
       </div>
 
-      {!ready ? (
-        <p className="text-fossil-fading">loading the feed…</p>
+      {!ready || !minLoading ? (
+        <AsciiLoader />
       ) : feed.length === 0 ? (
         <div className="rounded-xl border border-dashed border-fossil-edge p-10 text-center">
           <p className="font-mono text-fossil-fading">
