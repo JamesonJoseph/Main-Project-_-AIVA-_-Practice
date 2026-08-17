@@ -2,10 +2,12 @@
 
 import { usePosts } from "@/lib/usePosts";
 import { fossilGallery } from "@/lib/decay";
+import { useElapsed } from "@/lib/useElapsed";
 import AsciiLoader from "@/components/AsciiLoader";
 
 export default function FossilsPage() {
   const { posts, ready } = usePosts();
+  const minLoading = useElapsed(3000);
   const fossils = fossilGallery(posts);
 
   return (
@@ -19,7 +21,7 @@ export default function FossilsPage() {
         </p>
       </div>
 
-      {!ready ? (
+      {!ready || !minLoading ? (
         <AsciiLoader />
       ) : fossils.length === 0 ? (
         <p className="rounded-xl border border-dashed border-fossil-edge p-10 text-center font-mono text-fossil-fading">
