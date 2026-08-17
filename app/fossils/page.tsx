@@ -2,6 +2,7 @@
 
 import { usePosts } from "@/lib/usePosts";
 import { fossilGallery } from "@/lib/decay";
+import AsciiLoader from "@/components/AsciiLoader";
 
 export default function FossilsPage() {
   const { posts, ready } = usePosts();
@@ -19,7 +20,7 @@ export default function FossilsPage() {
       </div>
 
       {!ready ? (
-        <p className="text-fossil-fading">loading fossils…</p>
+        <AsciiLoader />
       ) : fossils.length === 0 ? (
         <p className="rounded-xl border border-dashed border-fossil-edge p-10 text-center font-mono text-fossil-fading">
           No fossils yet. A post needs 50 reinforcements to be preserved.

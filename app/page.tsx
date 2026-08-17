@@ -4,6 +4,7 @@ import { usePosts } from "@/lib/usePosts";
 import { liveFeed } from "@/lib/decay";
 import { computeIntegrity } from "@/lib/integrity";
 import PostCard from "@/components/PostCard";
+import AsciiLoader from "@/components/AsciiLoader";
 
 export default function FeedPage() {
   const { posts, ready, reinforce, alreadyReinforced } = usePosts();
@@ -27,7 +28,7 @@ export default function FeedPage() {
       </div>
 
       {!ready ? (
-        <p className="text-fossil-fading">loading the feed…</p>
+        <AsciiLoader />
       ) : feed.length === 0 ? (
         <div className="rounded-xl border border-dashed border-fossil-edge p-10 text-center">
           <p className="font-mono text-fossil-fading">
