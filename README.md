@@ -8,8 +8,15 @@ UUID stored in the browser.
 > **Adaptation note:** The original spec called for Vercel Postgres, KV, Blob, an
 > AI provider, and server cron jobs. This build runs **entirely peer-to-peer with
 > no backend or database** — every "env var" is **hardcoded** in `lib/config.ts`
-> and all data lives in the user's `localStorage`. The decay "cron" runs
-> client-side on a heartbeat (see `lib/usePosts.ts` + `lib/decay.ts`).
+> and all data lives in the user's `localStorage`. The decay logic runs
+> **client-side** on a heartbeat (see `lib/usePosts.ts` + `lib/decay.ts`) — no
+> Vercel cron jobs, so it works on the **free (Hobby) plan**.
+>
+> **Vercel free-plan note:** No `vercel.json` cron jobs are used — Vercel's Hobby
+> plan limits cron jobs to once per day and rejects hourly schedules at deploy
+> time. Decay is evaluated in the browser instead, so this deploys cleanly on the
+> free plan. All other features used (Next.js static hosting, browser
+> `localStorage`, `BroadcastChannel`) are free-plan compatible.
 
 ## How it works
 
@@ -61,8 +68,7 @@ lib/
   identity.ts         anonymous UUID (cookie analog)
   fossilImage.ts      canvas -> PNG data URL
   epitaphs.ts         local deterministic epitaph generator
-  usePosts.ts         client store + 60s decay heartbeat
-vercel.json           decorative cron schedule
+  usePosts.ts         client store + 2-day decay heartbeat
 ```
 
 ## Peer-to-peer sharing
